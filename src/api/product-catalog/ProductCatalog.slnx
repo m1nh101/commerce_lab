@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CommerceHub.ProductCatalog.Application/CommerceHub.ProductCatalog.Application.csproj" />
+  <Project Path="CommerceHub.ProductCatalog.Domain/CommerceHub.ProductCatalog.Domain.csproj" />
+  <Project Path="CommerceHub.ProductCatalog.Infrastructure/CommerceHub.ProductCatalog.Infrastructure.csproj" />
+  <Project Path="CommerceHub.ProductCatalog/CommerceHub.ProductCatalog.csproj" />
+</Solution>
