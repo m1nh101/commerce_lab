@@ -4,6 +4,10 @@
 	"name": "Debian",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:trixie",
+	"runArgs": [
+		"--sysctl",
+		"net.ipv6.conf.all.disable_ipv6=1"
+	],
 	"features": {
 		"ghcr.io/shyim/devcontainers-features/bun:0": {},
 		"ghcr.io/postfinance/devcontainer-features/dotnet:1": {},
@@ -15,5 +19,8 @@
 		"vscode": {
 			"extensions": []
 		}
-	}
+	},
+	"mounts": [
+		"source=claude-code-config,target=/home/vscode/.claude,type=volume"
+	]
 }

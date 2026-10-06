@@ -51,9 +51,9 @@ Stores base product definitions that represent the top-level product entity (e.g
 | `name` | `VARCHAR(255)` | `NOT NULL` | — | Commercial name of the product. |
 | `slug` | `VARCHAR(255)` | `UNIQUE`, `NOT NULL` | — | Human-readable URL slug for SEO routing. |
 | `description` | `TEXT` | `NULL` | `NULL` | Full product description or rich-text content. |
-| `status` | `smallint` | `NOT NULL` | `0` | |
-| `created_at` | `TIMESTAMP` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC record creation timestamp. |
-| `updated_at` | `TIMESTAMP` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC last record update timestamp. |
+| `status` | `smallint` | `NOT NULL` | `0` | Lifecycle status: `0` = Draft, `1` = Active, `2` = Inactive, `3` = Archived. |
+| `created_at` | `TIMESTAMPTZ` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC record creation timestamp. |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC last record update timestamp. |
 
 ---
 
@@ -72,9 +72,9 @@ Stores individual sellable units (SKUs) associated with a parent product (e.g., 
 | `name` | `VARCHAR(255)` | `NOT NULL` | — | Variant-specific display name. |
 | `price` | `DECIMAL(12, 2)`| `NOT NULL` | `0.00` | Base selling price. |
 | `currency` | `VARCHAR(3)` | `NOT NULL` | `'USD'` | ISO 4217 standard 3-letter currency code. |
-| `status` | `smallint` | `NOT NULL` | `0` | |
-| `created_at` | `TIMESTAMP` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC record creation timestamp. |
-| `updated_at` | `TIMESTAMP` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC last record update timestamp. |
+| `status` | `smallint` | `NOT NULL` | `0` | Lifecycle status: `0` = Draft, `1` = Active, `2` = Inactive, `3` = Archived. |
+| `created_at` | `TIMESTAMPTZ` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC record creation timestamp. |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `CURRENT_TIMESTAMP` | UTC last record update timestamp. |
 
 ---
 
@@ -121,7 +121,7 @@ Stores product categories in an Adjacency List model to support hierarchical cat
 | `parent_id` | `BIGINT` | `FK`, `NULL` | `NULL` | Self-referencing ID for parent category. `NULL` denotes root category. |
 | `name` | `VARCHAR(255)` | `NOT NULL` | — | Display category name. |
 | `slug` | `VARCHAR(255)` | `UNIQUE`, `NOT NULL` | — | URL-friendly unique identifier. |
-| `status` | `smallint` | `NOT NULL` | `0` | |
+| `status` | `smallint` | `NOT NULL` | `0` | Visibility status: `0` = Active, `1` = Hidden, `2` = Archived. |
 
 ---
 
@@ -168,5 +168,10 @@ Manages media asset links assigned to products or specific variants.
    - `categories.parent_id` must maintain referential integrity with `ON DELETE SET NULL` or restrictive handling to prevent orphaned subtrees.
 4. **Composite Uniqueness:**  
    - Primary Keys for junction tables (`product_categories`, `product_variant_attributes`) enforce uniqueness, ensuring no duplicate classification or duplicate attribute keys per variant.
+5. **Status Enumerations:**  
+   - `products.status` and `product_variants.status`: `0` = Draft, `1` = Active, `2` = Inactive, `3` = Archived.
+   - `categories.status`: `0` = Active, `1` = Hidden, `2` = Archived.
+6. **Audit Timestamps:**  
+   - `created_at` / `updated_at` are stored as `TIMESTAMPTZ` (PostgreSQL `timestamp with time zone`) and always written in UTC.
 
 ---
