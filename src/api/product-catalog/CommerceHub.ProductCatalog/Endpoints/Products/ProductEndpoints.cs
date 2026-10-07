@@ -111,7 +111,7 @@ internal static class ProductEndpoints
     {
         if (!TryParseIncludes(include, out var includes))
         {
-            return ApiResults.ValidationFailure("'include' must be a comma-separated list of variants, categories, images.");
+            return ApiResults.ValidationFailure("'include' must be a comma-separated list of variants, categories.");
         }
 
         var result = await handler.HandleAsync(new GetProductQuery(id, includes), cancellationToken);
@@ -246,7 +246,6 @@ internal static class ProductEndpoints
             {
                 case "variants": includes |= ProductIncludes.Variants; break;
                 case "categories": includes |= ProductIncludes.Categories; break;
-                case "images": includes |= ProductIncludes.Images; break;
                 default: return false;
             }
         }

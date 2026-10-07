@@ -76,7 +76,7 @@ internal sealed class CreateProductCommandHandler(IProductCatalogDbContext dbCon
 
         return await dbContext.LoadProductDetailAsync(
             product.Id,
-            ProductIncludes.Variants | ProductIncludes.Categories | ProductIncludes.Images,
+            ProductIncludes.Variants | ProductIncludes.Categories,
             cancellationToken);
     }
 

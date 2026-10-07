@@ -134,16 +134,6 @@ internal static class ProductQueryExtensions
                 .ToListAsync(cancellationToken)
             : null;
 
-        IReadOnlyList<ProductImageDto>? images = includes.HasFlag(ProductIncludes.Images)
-            ? await dbContext.ProductImages
-                .AsNoTracking()
-                .Where(i => i.ProductId == id)
-                .OrderBy(i => i.SortOrder)
-                .ThenBy(i => i.Id)
-                .Select(i => new ProductImageDto(i.Id, i.VariantId, i.Url, i.SortOrder))
-                .ToListAsync(cancellationToken)
-            : null;
-
         return new ProductDetailDto(
             product.Id,
             product.Name,
@@ -152,7 +142,6 @@ internal static class ProductQueryExtensions
             product.Status,
             variants,
             categories,
-            images,
             product.CreatedAt,
             product.UpdatedAt);
     }

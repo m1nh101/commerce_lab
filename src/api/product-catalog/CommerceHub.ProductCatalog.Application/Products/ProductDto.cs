@@ -26,21 +26,17 @@ public sealed record ProductDetailDto(
     ProductStatus Status,
     IReadOnlyList<VariantDto>? Variants,
     IReadOnlyList<ProductCategoryDto>? Categories,
-    IReadOnlyList<ProductImageDto>? Images,
     DateTimeOffset CreatedAt,
     DateTimeOffset UpdatedAt);
 
 public sealed record ProductCategoryDto(long Id, string Name, string Slug);
-
-public sealed record ProductImageDto(long Id, Guid? VariantId, string Url, int SortOrder);
 
 [Flags]
 public enum ProductIncludes
 {
     None = 0,
     Variants = 1,
-    Categories = 2,
-    Images = 4
+    Categories = 2
 }
 
 public enum ProductSort

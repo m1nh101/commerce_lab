@@ -114,9 +114,9 @@ Duplicate slug =\> `409 PRODUCT_SLUG_ALREADY_EXISTS`.
 ### GET `/api/v1/products/{productId}`
 
 Returns product catalog data, optionally including
-[variants](variant-specification.md), categories (see §5) and
-[images](image-specification.md). **Do not return stock quantities from
-this service.**
+[variants](variant-specification.md) and categories (see §5).
+[Images](image-specification.md) are returned per variant, not at the
+product level. **Do not return stock quantities from this service.**
 
 ### GET `/api/v1/products`
 
