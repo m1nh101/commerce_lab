@@ -16,6 +16,12 @@ internal static class VariantQueryExtensions
         CancellationToken cancellationToken) =>
         query.AnyAsync(v => v.Sku == sku && (excludeId == null || v.Id != excludeId), cancellationToken);
 
+    public static Task<bool> AnySkuExistsAsync(
+        this IQueryable<ProductVariant> query,
+        IReadOnlyCollection<string> skus,
+        CancellationToken cancellationToken) =>
+        skus.Count == 0 ? Task.FromResult(false) : query.AnyAsync(v => skus.Contains(v.Sku), cancellationToken);
+
     public static async Task<bool> AllExistAsync(
         this IQueryable<ProductAttribute> query,
         IReadOnlyCollection<long> ids,

@@ -4,6 +4,7 @@ using Asp.Versioning;
 using CommerceHub.ProductCatalog.Application;
 using CommerceHub.ProductCatalog.Endpoints.Attributes;
 using CommerceHub.ProductCatalog.Endpoints.Categories;
+using CommerceHub.ProductCatalog.Endpoints.Products;
 using CommerceHub.ProductCatalog.Endpoints.Variants;
 using CommerceHub.ProductCatalog.Infrastructure;
 using Scalar.AspNetCore;
@@ -55,6 +56,7 @@ app.UseHttpsRedirection();
 
 app.MapCategoryEndpoints();
 app.MapAttributeEndpoints();
+app.MapProductEndpoints();
 app.MapVariantEndpoints();
 
 app.Run();
