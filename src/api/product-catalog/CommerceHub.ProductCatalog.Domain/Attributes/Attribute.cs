@@ -25,4 +25,10 @@ public sealed class Attribute : Entity<long>, IAggregateRoot
     }
 
     public void Rename(string name) => Name = Guard.NotEmpty(name, NameMaxLength, nameof(name));
+
+    public void UpdateDetails(string name, string code)
+    {
+        Name = Guard.NotEmpty(name, NameMaxLength, nameof(name));
+        Code = Guard.NotEmpty(code, CodeMaxLength, nameof(code)).ToLowerInvariant();
+    }
 }

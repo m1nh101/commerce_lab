@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using CommerceHub.ProductCatalog.Application;
+using CommerceHub.ProductCatalog.Endpoints.Attributes;
 using CommerceHub.ProductCatalog.Endpoints.Categories;
 using CommerceHub.ProductCatalog.Infrastructure;
 using Scalar.AspNetCore;
@@ -52,5 +53,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapCategoryEndpoints();
+app.MapAttributeEndpoints();
 
 app.Run();

@@ -14,6 +14,8 @@ public sealed class ProductCatalogDbContext(DbContextOptions<ProductCatalogDbCon
 
     public DbSet<ProductAttribute> Attributes => Set<ProductAttribute>();
 
+    public DbSet<ProductVariantAttribute> ProductVariantAttributes => Set<ProductVariantAttribute>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductCatalogDbContext).Assembly);
