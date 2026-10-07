@@ -4,4 +4,6 @@
   <Project Path="CommerceHub.ProductCatalog.Domain/CommerceHub.ProductCatalog.Domain.csproj" />
   <Project Path="CommerceHub.ProductCatalog.Infrastructure/CommerceHub.ProductCatalog.Infrastructure.csproj" />
   <Project Path="CommerceHub.ProductCatalog/CommerceHub.ProductCatalog.csproj" />
+  <Project Path="../../../tests/CommerceHub.ProductCatalog.UnitTests/CommerceHub.ProductCatalog.UnitTests.csproj" />
+  <Project Path="../../../tests/CommerceHub.ProductCatalog.Benchmarks/CommerceHub.ProductCatalog.Benchmarks.csproj" />
 </Solution>

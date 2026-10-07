@@ -3,3 +3,6 @@
 /src/**/**/**/bin
 /src/**/**/**/obj
 /src/**/**/**/appsettings.Development.json
+
+/tests/**/obj
+/tests/**/bin

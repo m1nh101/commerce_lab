@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/api/product-catalog/CommerceHub.ProductCatalog.Application/CommerceHub.ProductCatalog.Application.csproj" />
+    <ProjectReference Include="../../src/api/product-catalog/CommerceHub.ProductCatalog.Domain/CommerceHub.ProductCatalog.Domain.csproj" />
+    <ProjectReference Include="../../src/api/product-catalog/CommerceHub.ProductCatalog.Infrastructure/CommerceHub.ProductCatalog.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="CommerceHub.ProductCatalog.UnitTests" />
+    <InternalsVisibleTo Include="CommerceHub.ProductCatalog.Benchmarks" />
+  </ItemGroup>
+
 </Project>

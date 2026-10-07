@@ -11,7 +11,8 @@ Run these from `src/api/product-catalog` unless a step says otherwise.
 - Add a migration:
   `dotnet ef migrations add <Name> --project CommerceHub.ProductCatalog.Infrastructure --startup-project CommerceHub.ProductCatalog --output-dir Database/Migrations`
 - Apply migrations: `dotnet ef database update --project CommerceHub.ProductCatalog.Infrastructure --startup-project CommerceHub.ProductCatalog`
-- There are no test projects yet.
+- Run unit tests: `dotnet test ProductCatalog.slnx` (project `tests/CommerceHub.ProductCatalog.UnitTests` at the repo root: xUnit v3 + AwesomeAssertions, the real `ProductCatalogDbContext` on EF InMemory).
+- Benchmarks (from the repo root, with Postgres running): `dotnet run -c Release --project tests/CommerceHub.ProductCatalog.Benchmarks -- --filter *` (BenchmarkDotNet, allocations and a CPU `.nettrace` per benchmark). Add `--profile` instead to write the SQL, round trips and `EXPLAIN ANALYZE` of every read query to `BenchmarkDotNet.Artifacts/sql-profile.md`. The first run migrates and seeds `product_catalog_bench` (10k products). Override the database with `ConnectionStrings__ProductCatalogBench`.
 
 The connection string `ConnectionStrings:ProductCatalog` is required, and startup throws if it is missing. It is not in `appsettings.json`, so supply it through user-secrets or an environment variable.
 
