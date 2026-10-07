@@ -4,7 +4,8 @@ public enum ErrorType
 {
     Validation,
     NotFound,
-    Conflict
+    Conflict,
+    Unprocessable
 }
 
 public sealed record Error(string Code, string Message, ErrorType Type)

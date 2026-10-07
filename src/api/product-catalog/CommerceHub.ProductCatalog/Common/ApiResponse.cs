@@ -39,6 +39,7 @@ internal static class ApiResults
             {
                 ErrorType.NotFound => StatusCodes.Status404NotFound,
                 ErrorType.Conflict => StatusCodes.Status409Conflict,
+                ErrorType.Unprocessable => StatusCodes.Status422UnprocessableEntity,
                 _ => StatusCodes.Status400BadRequest
             });
 

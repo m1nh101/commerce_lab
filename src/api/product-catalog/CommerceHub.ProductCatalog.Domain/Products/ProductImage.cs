@@ -32,5 +32,7 @@ public sealed class ProductImage : Entity<long>
         };
     }
 
+    public void ChangeUrl(string url) => Url = Guard.NotEmpty(url, UrlMaxLength, nameof(url));
+
     public void ChangeSortOrder(int sortOrder) => SortOrder = sortOrder;
 }
