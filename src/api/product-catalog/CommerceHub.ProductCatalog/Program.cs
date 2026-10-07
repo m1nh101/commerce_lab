@@ -4,12 +4,11 @@ using Asp.Versioning;
 using CommerceHub.ProductCatalog.Application;
 using CommerceHub.ProductCatalog.Endpoints.Categories;
 using CommerceHub.ProductCatalog.Infrastructure;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
 
 builder.Services.ConfigureHttpJsonOptions(options =>
@@ -24,7 +23,13 @@ builder.Services.AddApiVersioning(options =>
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.ReportApiVersions = true;
     options.ApiVersionReader = new UrlSegmentApiVersionReader();
-});
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+})
+// One OpenAPI document per API version (https://aka.ms/aspnet/openapi)
+.AddOpenApi();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -36,7 +41,12 @@ app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi().WithDocumentPerVersion();
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTitle("CommerceHub Product Catalog API");
+        options.AddDocuments(app.DescribeApiVersions().Select(d => d.GroupName));
+    });
 }
 
 app.UseHttpsRedirection();
