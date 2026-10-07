@@ -43,6 +43,8 @@ public sealed class ProductVariant : AuditableEntity<Guid>
         return variant;
     }
 
+    public void ChangeSku(string sku) => Sku = Guard.NotEmpty(sku, SkuMaxLength, nameof(sku));
+
     public void Rename(string name) => Name = Guard.NotEmpty(name, NameMaxLength, nameof(name));
 
     public void ChangePrice(decimal price, string currency)

@@ -7,6 +7,12 @@ namespace CommerceHub.ProductCatalog.Application.Abstractions;
 
 public interface IProductCatalogDbContext
 {
+    DbSet<Product> Products { get; }
+
+    DbSet<ProductVariant> ProductVariants { get; }
+
+    DbSet<ProductImage> ProductImages { get; }
+
     DbSet<Category> Categories { get; }
 
     DbSet<ProductAttribute> Attributes { get; }

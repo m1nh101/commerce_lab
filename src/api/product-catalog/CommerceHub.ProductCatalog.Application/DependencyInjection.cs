@@ -1,3 +1,4 @@
+using CommerceHub.Cqrs;
 using CommerceHub.ProductCatalog.Application.Attributes;
 using CommerceHub.ProductCatalog.Application.Categories;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ public static class DependencyInjection
     {
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IAttributeService, AttributeService>();
+        services.AddCqrsHandlers(typeof(DependencyInjection).Assembly);
 
         return services;
     }
