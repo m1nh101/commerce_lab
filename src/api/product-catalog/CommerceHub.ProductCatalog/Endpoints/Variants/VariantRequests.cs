@@ -10,7 +10,8 @@ public sealed record CreateVariantRequest(
     decimal? Price,
     string? Currency,
     ProductVariantStatus? Status,
-    IReadOnlyList<VariantAttributeRequest>? Attributes);
+    IReadOnlyList<VariantAttributeRequest>? Attributes,
+    IReadOnlyList<string>? ImageUrls);
 
 public sealed record UpdateVariantRequest(
     string? Sku,

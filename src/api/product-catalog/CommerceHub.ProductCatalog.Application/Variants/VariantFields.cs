@@ -11,6 +11,7 @@ public sealed record VariantFields(
     decimal? Price,
     string? Currency,
     ProductVariantStatus? Status,
-    IReadOnlyList<VariantAttributeField>? Attributes);
+    IReadOnlyList<VariantAttributeField>? Attributes,
+    IReadOnlyList<string>? ImageUrls = null);
 
 public sealed record VariantAttributeField(long? AttributeId, string? Value);

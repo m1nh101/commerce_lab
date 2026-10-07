@@ -55,6 +55,11 @@ internal sealed class CreateVariantCommandHandler(IProductCatalogDbContext dbCon
             variant.SetAttribute(attributeId, value);
         }
 
+        for (var i = 0; i < valid.ImageUrls.Count; i++)
+        {
+            product.AddImage(valid.ImageUrls[i], i, variant.Id);
+        }
+
         // The variant id is generated client-side, so mark it Added explicitly rather than relying on graph discovery.
         dbContext.ProductVariants.Add(variant);
         return variant;

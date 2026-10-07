@@ -34,6 +34,10 @@ Variant status uses the Product/Variant status enum
   "attributes": [
     { "attributeId": 1, "value": "Red" },
     { "attributeId": 2, "value": "L" }
+  ],
+  "imageUrls": [
+    "https://cdn.example.com/products/tshirt-red-l-front.jpg",
+    "https://cdn.example.com/products/tshirt-red-l-back.jpg"
   ]
 }
 ```
@@ -49,6 +53,10 @@ Validation:
 -   Every attribute definition exists.
 -   No attribute ID appears twice in one command.
 -   Attribute value required, maximum 255 characters.
+-   `imageUrls` optional; each entry is an absolute http(s) URL, maximum
+    the `product_images.url` length. Images are stored against the variant
+    (and its product) with `sortOrder` following array order. The same
+    field is accepted on each variant nested in product creation.
 
 Creating or updating a variant **never creates or changes stock**.
 

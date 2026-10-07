@@ -17,7 +17,8 @@ public sealed record CreateProductVariantRequest(
     decimal? Price,
     string? Currency,
     ProductVariantStatus? Status,
-    IReadOnlyList<VariantAttributeRequest>? Attributes);
+    IReadOnlyList<VariantAttributeRequest>? Attributes,
+    IReadOnlyList<string>? ImageUrls);
 
 /// <summary>
 /// Body for PUT (full replace) and PATCH (partial update).

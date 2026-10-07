@@ -54,6 +54,11 @@ internal sealed class CreateProductCommandHandler(IProductCatalogDbContext dbCon
             {
                 variant.SetAttribute(attributeId, value);
             }
+
+            for (var i = 0; i < variantValid.ImageUrls.Count; i++)
+            {
+                product.AddImage(variantValid.ImageUrls[i], i, variant.Id);
+            }
         }
 
         foreach (var categoryId in categoryIds)
@@ -61,7 +66,7 @@ internal sealed class CreateProductCommandHandler(IProductCatalogDbContext dbCon
             product.AssignCategory(categoryId);
         }
 
-        // Adding the root marks the whole graph (variants, attribute values, category mappings) as Added.
+        // Adding the root marks the whole graph (variants, attribute values, images, category mappings) as Added.
         dbContext.Products.Add(product);
 
         if (await dbContext.SaveProductChangesAsync(cancellationToken) is { } saveError)
@@ -71,7 +76,7 @@ internal sealed class CreateProductCommandHandler(IProductCatalogDbContext dbCon
 
         return await dbContext.LoadProductDetailAsync(
             product.Id,
-            ProductIncludes.Variants | ProductIncludes.Categories,
+            ProductIncludes.Variants | ProductIncludes.Categories | ProductIncludes.Images,
             cancellationToken);
     }
 

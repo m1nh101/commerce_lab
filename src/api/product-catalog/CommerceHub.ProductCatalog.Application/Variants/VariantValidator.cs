@@ -1,4 +1,5 @@
 using CommerceHub.ProductCatalog.Application.Common;
+using CommerceHub.ProductCatalog.Application.Images;
 using CommerceHub.ProductCatalog.Domain.Products;
 
 namespace CommerceHub.ProductCatalog.Application.Variants;
@@ -11,7 +12,8 @@ internal sealed record ValidVariant(
     string Name,
     decimal Price,
     string Currency,
-    IReadOnlyList<(long AttributeId, string Value)> Attributes);
+    IReadOnlyList<(long AttributeId, string Value)> Attributes,
+    IReadOnlyList<string> ImageUrls);
 
 /// <summary>
 /// Pure input validation for variants. Checks against stored data (SKU uniqueness, attribute existence) are done by the
@@ -24,7 +26,7 @@ internal static class VariantValidator
 
     public static Result<ValidVariant> Validate(VariantFields fields)
     {
-        var (sku, name, price, currency, status, attributes) = fields;
+        var (sku, name, price, currency, status, attributes, imageUrls) = fields;
 
         if (string.IsNullOrWhiteSpace(sku))
         {
@@ -93,7 +95,19 @@ internal static class VariantValidator
             values.Add((attributeId, attribute.Value!.Trim()));
         }
 
-        return new ValidVariant(sku.Trim(), name.Trim(), price.Value, normalizedCurrency, values);
+        var urls = new List<string>();
+        for (var i = 0; i < (imageUrls?.Count ?? 0); i++)
+        {
+            var url = ImageValidator.ValidateUrl(imageUrls![i]);
+            if (url.Error is { } urlError)
+            {
+                return urlError with { Message = $"image_urls[{i}]: {urlError.Message}" };
+            }
+
+            urls.Add(url.Value);
+        }
+
+        return new ValidVariant(sku.Trim(), name.Trim(), price.Value, normalizedCurrency, values, urls);
     }
 
     public static Error? ValidateAttributeValue(string? value)

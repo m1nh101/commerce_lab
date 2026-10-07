@@ -55,7 +55,8 @@ internal static class ProductEndpoints
             .Select(v => v is null
                 ? null!
                 : new VariantFields(v.Sku, v.Name, v.Price, v.Currency, v.Status,
-                    v.Attributes?.Select(a => new VariantAttributeField(a?.AttributeId, a?.Value)).ToList()))
+                    v.Attributes?.Select(a => new VariantAttributeField(a?.AttributeId, a?.Value)).ToList(),
+                    v.ImageUrls))
             .ToList();
 
         var command = new CreateProductCommand(fields, variants, request.CategoryIds);

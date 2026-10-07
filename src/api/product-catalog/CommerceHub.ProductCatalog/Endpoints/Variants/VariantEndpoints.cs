@@ -43,7 +43,10 @@ internal static class VariantEndpoints
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var fields = ToFields(request.Sku, request.Name, request.Price, request.Currency, request.Status, request.Attributes);
+        var fields = ToFields(request.Sku, request.Name, request.Price, request.Currency, request.Status, request.Attributes) with
+        {
+            ImageUrls = request.ImageUrls
+        };
         var result = await handler.HandleAsync(new CreateVariantCommand(productId, fields), cancellationToken);
 
         if (!result.IsSuccess)
